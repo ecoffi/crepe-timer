@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crepe Timer</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .timer-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        .timer {
+            display: flex;
+            flex-direction: column;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin: 10px;
+            width: 150px;
+        }
+
+        .timer-count {
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            border: none;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button.start {
+            height: 50px;
+            background-color: #209CEE;
+        }
+
+        button.reset {
+            height: 35px;
+            background-color: #636363;
+        }
+
+        button.start:hover {
+            background-color: #007bff;
+        }
+
+        button.reset:hover {
+            background-color: #383838;
+        }
+    </style>
+</head>
+<body>
+    <div class="timer-container">
+        <h2>Crepe Timer 🥞</h2>
+        <div class="timer">
+            <span id="timer30" class="timer-count">30</span>
+            <button id="start30" class="start">Start</button>
+            <button id="reset30" class="reset">Reset</button>
+        </div>
+        <div class="timer">
+            <span id="timer60" class="timer-count">60</span>
+            <button id="start60" class="start">Start</button>
+            <button id="reset60" class="reset">Reset</button>
+        </div>
+    </div>
+    <script>
+        const timer30 = document.getElementById('timer30');
+        const start30 = document.getElementById('start30');
+        const reset30 = document.getElementById('reset30');
+        const timer60 = document.getElementById('timer60');
+        const start60 = document.getElementById('start60');
+        const reset60 = document.getElementById('reset60');
+
+        let interval30, interval60;
+
+        function playSound() {
+            const audio = new Audio('bell.mp3');
+            audio.play();
+        }
+
+        start30.addEventListener('click', () => {
+            if (!interval30) {
+                interval30 = setInterval(() => {
+                    const seconds = parseInt(timer30.innerText);
+                    if (seconds > 0) {
+                        timer30.innerText = seconds - 1;
+                    } else {
+                        clearInterval(interval30);
+                        interval30 = null;
+                        playSound();
+                    }
+                }, 1000);
+            }
+        });
+
+        reset30.addEventListener('click', () => {
+            clearInterval(interval30);
+            interval30 = null;
+            timer30.innerText = 30;
+        });
+
+        start60.addEventListener('click', () => {
+            if (!interval60) {
+                interval60 = setInterval(() => {
+                    const seconds = parseInt(timer60.innerText);
+                    if (seconds > 0) {
+                        timer60.innerText = seconds - 1;
+                    } else {
+                        clearInterval(interval60);
+                        interval60 = null;
+                        playSound();
+                    }
+                }, 1000);
+            }
+        });
+
+        reset60.addEventListener('click', () => {
+            clearInterval(interval60);
+            interval60 = null;
+            timer60.innerText = 60;
+        });
+    </script>
+</body>
+</html>
